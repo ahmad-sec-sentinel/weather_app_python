@@ -17,7 +17,7 @@ if __name__ == "__main__":
     print('\n ****Get Weather conditions***\n')
     city = input("\nEnter city name: ")
 
-# Check for empty tsrings or strings with only spaces
+# Check for empty strings or strings with only spaces
     if not bool(city.strip()):
         city = "New Delhi"
     weather_data = get_current_weather(city)
