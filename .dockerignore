@@ -1,0 +1,5 @@
+Jenkinsfile
+docker-compose.yml
+*.md
+.git
+.gitignore
