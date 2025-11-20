@@ -7,9 +7,6 @@ pipeline {
     APP_PORT   = "5000"   
   }
 
-  triggers {
-    // Webhook will handle automatic triggers
-  }
 
   stages {
 
