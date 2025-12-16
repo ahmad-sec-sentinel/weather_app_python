@@ -40,8 +40,8 @@ pipeline {
         sh '''
           export IMAGE_NAME=${IMAGE_NAME}
           export IMAGE_TAG=${IMAGE_TAG}
-          docker-compose down
-          docker-compose up -d
+          docker compose down
+          docker compose up -d
         '''
       }
     }
