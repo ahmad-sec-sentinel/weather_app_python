@@ -5,4 +5,6 @@ services:
     image: ${IMAGE_NAME}:${IMAGE_TAG}
     ports:
       - "5000:5000"   # mapped to avoid Jenkins port conflict
+    env_file:
+      - .env
     restart: unless-stopped
