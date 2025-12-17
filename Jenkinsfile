@@ -37,9 +37,11 @@ pipeline {
 
     stage('Deploy with Docker Compose') {
       steps {
+        withCredentials([string(credentialsId: 'openweather-api-key', variable: 'API_KEY')]){
         sh '''
           export IMAGE_NAME=${IMAGE_NAME}
           export IMAGE_TAG=${IMAGE_TAG}
+          export API_KEY=${API_KEY}
           docker compose down
           docker compose up -d
         '''
