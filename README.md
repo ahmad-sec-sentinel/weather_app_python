@@ -12,15 +12,19 @@ Weather app built with Flask and Python. Enter a city, get live temperature and 
 [Step 2: Install Dependencies on EC2](#dependency-installation-ec2)  
 [Step 3: Jenkins Installation and Setup](#jenkins-installation)  
 [Step 4: GitHub Repository Configuration](#github-repo)  
-   - [Dockerfile](#dockerfile)  
-   - [docker-compose.yml](#docker-compose)  
-   - [Jenkinsfile](#jenkinsfile)
+- [Dockerfile](#dockerfile)  
+- [docker-compose.yml](#docker-compose)  
+- [Jenkinsfile](#jenkinsfile)  
 [Jenkins CI/CD pipeline](#jenkinspipeline)  
-[Troubleshooting](#troubleshooting)  
-[What problem does this project solve](#problemsolved)  
+[Troubleshooting](#troubleshooting)    
+[What problem does this project solve](#problemsolved)    
 [Conclusion](#conclusion)  
 
 ## Project Overview
-**Automated Flask CI/CD Pipeline on AWS EC2**  : Production-grade Flask app deployed via Jenkins on AWS EC2: GitHub push triggers build, Docker image creation, and seamless deployment using Docker compose. Demonstrates CI/CD, containerization, automation mastery for scalable cloud ops
+**Automated Flask CI/CD Pipeline on AWS EC2**  : Production-grade Flask app deployed via Jenkins on AWS EC2: GitHub push triggers build, Docker image creation, and seamless deployment using Docker compose. Demonstrates CI/CD, containerization, automation mastery for scalable cloud ops.  
+
+## Architecture Diagram
+
+<img src= "images/architecture.jpg">
 
 
