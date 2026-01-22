@@ -101,13 +101,158 @@ Retrieving  the initial admin password:
 ```
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
-Access the Jenkins dashboard at http://<ec2-public-ip>:8080.
+Access the Jenkins dashboard at `http://<ec2-public-ip>:8080`.
 Paste the password, install suggested plugins, and create an admin user.
 - **5. Grant Jenkins Docker Permissions:**
 
-```sudo usermod -aG docker jenkins
+```
+sudo usermod -aG docker jenkins
 sudo systemctl restart jenkins
 ```
+
+## Step 4: GitHub Repository Configuration
+**1. DockerFile**- It contains the list of intructions which is used to build a docker image
+```
+#Using official Python runtime as base image
+FROM python:3.11-slim
+
+# Setting the working directory in the container
+WORKDIR /app
+
+# Copying the file which has list of dependencies
+COPY requirements.txt .
+
+# Installing the dependencies listed in the requirements.txt file
+RUN pip install -r requirements.txt
+
+# Copying rest of the application code
+COPY . .
+
+# Mentioning the port that will be exposed when the container runs
+EXPOSE 5000
+
+# Command to run the application
+CMD ["python", "server.py"]
+```
+**2. docker-compose.yml**
+```
+services:
+  weather-app:
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
+    ports:
+      - "5000:5000"   # mapped to avoid Jenkins port conflict
+    environment:
+      - API_KEY=${API_KEY}   #API_KEY is stored as a secret credential inside Jenkins.This ensures safety of API_KEY
+    restart: unless-stopped
+```
+**3. Jenkinsfile**
+```
+pipeline {
+  agent any
+
+  environment {
+    IMAGE_NAME = "ahmaddocknroll/weather-app"
+    IMAGE_TAG  = "${env.BUILD_NUMBER}"
+    APP_PORT   = "5000"   
+  }
+
+
+  stages {
+
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Build Docker image') {
+      steps {
+        sh '''
+          docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+        '''
+      }
+    }
+
+    stage('Push image to Docker Hub') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+          sh '''
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+            docker push ${IMAGE_NAME}:${IMAGE_TAG}
+          '''
+        
+        }
+      }
+    }
+
+    stage('Deploy with Docker Compose') {
+      steps {
+        withCredentials([string(credentialsId: 'openweather-api-key', variable: 'API_KEY')]){
+        sh '''
+          export IMAGE_NAME=${IMAGE_NAME}
+          export IMAGE_TAG=${IMAGE_TAG}
+          export API_KEY=${API_KEY}
+          docker compose down
+          docker compose up -d
+        '''
+        }
+      }
+    }
+  }
+
+  post {
+    success {
+      echo " App deployed successfully at port ${APP_PORT}"
+    }
+    failure {
+      echo " Deployment failed. Check logs for details."
+    }
+  }
+}
+```
+
+---
+## Jenkins CI/CD pipeline
+**1. Creating a new item**
+- Click on New Item. Give a name for the item, select Pipeline and then click on OK.
+**2. Configure the Pipeline:**
+- We select Github Project and give the URL link to the repo.
+- Under Triggers we select Github hook trigger.
+<img src="images/pipeline-configure_1.jpg">
+- Under the pipeline section, select definition as Pipeline script from SCM
+- Set SCM as Git and give the URL of the Github repository.
+<img src="images/pipeline-configure_2.jpg">
+- Verify the Script Path is Jenkinsfile.
+- Save the configuration.
+<img src="images/pipeline-configure_3.jpg">
+
+**3. Run the Pipeline:**
+- Click Build Now to trigger the pipeline manually for the first time.  
+- From the navigation panel o left, the status of build can be seen by clicking on Console Output.
+<img src="images/console-output.jpg">
+<img src="images/console-output_1.jpg">
+
+**4.Verify Deployment:**
+- After a successful build, the Flask application will be accessible at `http://<ec2-public-ip>:5000`
+
+<img src="images/flask-app-output.jpg">
+
+
+- Confirm the containers are running on the EC2 instance with docker ps
+
+
+<img src="images/docker-ps-container.jpg">
+
+## Troubleshooting
+
+**1. Storing the API key**
+This weather app uses API key. Inorder to ensure its safety , I used these measures.
+- While pushing the code from my local to Github, I put the .env file having the API key under gitignore.
+- To prevent hardcoding the API_KEY , I saved it as a secret  Credentials inside Jenkins and later referred to it in my Jnekins file
+**2. Storing Docker hub credentials**
+I stored this also as secret  Credentials inside Jenkins
+
+
 
 
 
