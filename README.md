@@ -225,14 +225,15 @@ pipeline {
 - Verify the Script Path is Jenkinsfile.
 - Save the configuration.
 <img src="images/pipeline-configure_3.jpg">
+**3. Creating a webhook on Github associated with the repo**
 
-**3. Run the Pipeline:**
+**4. Run the Pipeline:**
 - Click Build Now to trigger the pipeline manually for the first time.  
 - From the navigation panel o left, the status of build can be seen by clicking on Console Output.
 <img src="images/console-output.jpg">
 <img src="images/console-output_1.jpg">
 
-**4.Verify Deployment:**
+**5.Verify Deployment:**
 - After a successful build, the Flask application will be accessible at `http://<ec2-public-ip>:5000`
 
 <img src="images/flask-app-output.jpg">
@@ -245,12 +246,38 @@ pipeline {
 
 ## Troubleshooting
 
-**1. Storing the API key**
-This weather app uses API key. Inorder to ensure its safety , I used these measures.
-- While pushing the code from my local to Github, I put the .env file having the API key under gitignore.
-- To prevent hardcoding the API_KEY , I saved it as a secret  Credentials inside Jenkins and later referred to it in my Jnekins file
-**2. Storing Docker hub credentials**
-I stored this also as secret  Credentials inside Jenkins
+**1. Storing the API key**  
+This weather app uses API key. Inorder to ensure its safety , I used these measures.  
+- While pushing the code from my local to Github, I put the .env file having the API key under gitignore.  
+- To prevent hardcoding the API_KEY , I saved it as secret  Credentials inside Jenkins and later referred to it in my Jenkinsfile.  
+- API_KEY is passed via Jenkins credentials to  Docker Compose which then passes it into container environment.  
+  
+**2. Storing Docker hub credentials**  
+I stored this also as secret  Credentials inside Jenkins.  
+
+**3. Case mismatch**  
+In my weather.py Python file and the Jenkinsfile there was a case  mismatch between the variable for API KEY. I rectified it by ensuring there is case uniformity at both the places else the API call would fail.  
+
+**4. Error handling**  
+
+While excuting the build, I got an error message :"ERROR: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"  
+
+**How I rectified the error----**  
+- Started Docker daemon (`systemctl start docker`).  
+- Added Jenkins user to docker group (`usermod -aG docker jenkins`).  
+- Restarted Jenkins `sudo systemctl restart jenkins`
+
+**5. Resolved a Docker Compose version mismatch by upgrading to v2 and removing deprecated syntax.**  
+- Docker Compose v2 is now part of the Docker CLI as docker compose (note: no hyphen).  
+- In the earlier version of docker compose we needed to mention `version: '3.8' at the beginning of our YAML File but Docker Compose v2 no longer requires it and will ignore it anyway.
+
+
+`
+
+
+
+
+
 
 
 
