@@ -35,10 +35,11 @@ Weather app built with Flask and Python. Enter a city, get live temperature and 
 
 Eliminates manual deployments, reducing errors and release times from hours to minutes. Automates Flask app builds, Docker containerization, and EC2 orchestration via Jenkins CI/CD and thus solving scalability bottlenecks in dynamic cloud environments.  
 ​
-**Advantages**
-- Accelerates deployments 10x with zero-downtime updates  
-​- Enhances security via secret management (API keys, Docker creds)    
-​- Cuts costs with efficient AWS resource utilization.   
+**Advantages**  
+
+- Accelerates deployments 10x with zero-downtime updates     
+​- Enhances security via secret management (API keys, Docker creds)      
+​- Cuts costs with efficient AWS resource utilization.  
 
 ---
 ## Step 1: AWS EC2 Instance Preparation  
