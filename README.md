@@ -124,7 +124,8 @@ sudo systemctl restart jenkins
 ```
 
 ## Step 4: GitHub Repository Configuration
-**1. DockerFile**- It contains the list of intructions which is used to build a docker image
+**1. DockerFile**  
+It contains the list of intructions which is used to build a docker image
 ```
 #Using official Python runtime as base image
 FROM python:3.11-slim
@@ -147,7 +148,7 @@ EXPOSE 5000
 # Command to run the application
 CMD ["python", "server.py"]
 ```
-**2. docker-compose.yml**
+**2. docker-compose.yml**  
 ```
 services:
   weather-app:
@@ -158,7 +159,7 @@ services:
       - API_KEY=${API_KEY}   #API_KEY is stored as a secret credential inside Jenkins.This ensures safety of API_KEY
     restart: unless-stopped
 ```
-**3. Jenkinsfile**
+**3. Jenkinsfile**  
 ```
 pipeline {
   agent any
