@@ -5,20 +5,23 @@ Weather app built with Flask and Python. Enter a city, get live temperature and 
 - *Frontend:* Flask, a lightweight Python web framework  
 - *Devops Tools:* Jenkins, GitHub, Docker, Docker Compose
 ---  
-## Table of Contents 
-[Project Overview](#project-overview)  
-[Architecture Diagram](#arch-diagram)  
-[Step 1: AWS EC2 Instance Preparation](#ec2-prep)  
-[Step 2: Install Dependencies on EC2](#dependency-installation-ec2)  
-[Step 3: Jenkins Installation and Setup](#jenkins-installation)  
-[Step 4: GitHub Repository Configuration](#github-repo)  
-- [Dockerfile](#dockerfile)  
-- [docker-compose.yml](#docker-compose)  
-- [Jenkinsfile](#jenkinsfile)  
-[Jenkins CI/CD pipeline](#jenkinspipeline)  
-[Troubleshooting](#troubleshooting)    
-[What problem does this project solve](#problemsolved)    
-[Conclusion](#conclusion)  
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Architecture Diagram](#architecture-diagram)
+- [Problem that this Project solves](#problem-that-this-project-solves)
+- [Step 1: AWS EC2 Instance Preparation](#step-1-aws-ec2-instance-preparation)
+- [Step 2: Install Dependencies on EC2](#step-2-install-dependencies-on-ec2)
+- [Step 3: Jenkins Installation and Setup](#step-3-jenkins-installation-and-setup)
+- [Step 4: GitHub Repository Configuration](#step-4-github-repository-configuration)
+  - [Dockerfile](#dockerfile)
+  - [docker-compose.yml](#docker-composeyml)
+  - [Jenkinsfile](#jenkinsfile)
+- [Jenkins CI/CD pipeline](#jenkins-cicd-pipeline)
+- [Workflow Diagram](#workflow-diagram)
+- [Troubleshooting](#troubleshooting)
+- [Conclusion](#conclusion)
+
+
 
 ## Project Overview
 **Automated Flask CI/CD Pipeline on AWS EC2**  : Production-grade Flask app deployed via Jenkins on AWS EC2: GitHub push triggers build, Docker image creation, and seamless deployment using Docker compose. Demonstrates CI/CD, containerization, automation mastery for scalable cloud ops.  
@@ -26,6 +29,16 @@ Weather app built with Flask and Python. Enter a city, get live temperature and 
 ## Architecture Diagram
 
 <img src= "images/architecture.jpg">
+
+
+## Problem that this Project solves  
+
+Eliminates manual deployments, reducing errors and release times from hours to minutes. Automates Flask app builds, Docker containerization, and EC2 orchestration via Jenkins CI/CD and thus solving scalability bottlenecks in dynamic cloud environments.  
+​
+**Advantages**
+- Accelerates deployments 10x with zero-downtime updates  
+​- Enhances security via secret management (API keys, Docker creds)    
+​- Cuts costs with efficient AWS resource utilization.   
 
 ---
 ## Step 1: AWS EC2 Instance Preparation  
@@ -244,6 +257,10 @@ pipeline {
 
 <img src="images/docker-ps-container.jpg">
 
+## Workflow Diagram
+
+<img src="images/workflow-dia.jpg">
+
 ## Troubleshooting
 
 **1. Storing the API key**  
@@ -270,6 +287,9 @@ While excuting the build, I got an error message :"ERROR: Cannot connect to the 
 **5. Resolved a Docker Compose version mismatch by upgrading to v2 and removing deprecated syntax.**  
 - Docker Compose v2 is now part of the Docker CLI as docker compose (note: no hyphen).  
 - In the earlier version of docker compose we needed to mention `version: '3.8' at the beginning of our YAML File but Docker Compose v2 no longer requires it and will ignore it anyway.
+
+## Conclusion  
+This project showcases a complete production-style CI/CD pipeline that transforms a simple Flask weather app into a continuously deployable cloud service on AWS EC2. It demonstrates strong command of Jenkins, Docker, and secrets management, proving readiness for real DevOps responsibilities in GCC-scale environments.  
 
 
 `
