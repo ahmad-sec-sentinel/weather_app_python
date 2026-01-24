@@ -291,7 +291,7 @@ While excuting the build, I got an error message :"ERROR: Cannot connect to the 
 - In the earlier version of docker compose we needed to mention `version: '3.8' at the beginning of our YAML File but Docker Compose v2 no longer requires it and will ignore it anyway.
 
 ## Conclusion  
-This project showcases a complete production-style CI/CD pipeline that transforms a simple Flask weather app into a continuously deployable cloud service on AWS EC2. It demonstrates strong command of Jenkins, Docker, and secrets management, proving readiness for real DevOps responsibilities in GCC-scale environments.  
+This project showcases a complete production-style CI/CD pipeline that transforms a simple Flask weather app into a continuously deployable cloud service on AWS EC2. It demonstrates strong command of Jenkins, Docker, and secrets management, proving readiness for real DevOps responsibilities in production environments.  
 
 
 `
