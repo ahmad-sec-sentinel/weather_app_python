@@ -3,7 +3,7 @@ Weather app built with Flask and Python. Enter a city, get live temperature and 
 
 ## Tech stack 
 - *Frontend:* Flask, a lightweight Python web framework  
-- *Devops Tools:* Jenkins, GitHub, Docker, Docker Compose
+- *Devops Tools:* Jenkins,Version Control using Git,  GitHub, Docker, Docker Compose
 ---  
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -292,6 +292,21 @@ While excuting the build, I got an error message :"ERROR: Cannot connect to the 
 
 ## Conclusion  
 This project showcases a complete production-style CI/CD pipeline that transforms a simple Flask weather app into a continuously deployable cloud service on AWS EC2. It demonstrates strong command of Jenkins, Docker, and secrets management, proving readiness for real DevOps responsibilities in production environments.  
+
+## 👤 About This Project
+
+- **Built by:** Ahmad Saalik Hussain
+- **Date:** December, 2025
+- **Status:** ✅ Complete & Production-Ready
+- **License:** MIT
+
+
+## 📞 Contact & Links
+### Connect with me
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Ahmad%20Saalik%20Hussain-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/ahmad-saalik-hussain)
+[![GitHub](https://img.shields.io/badge/GitHub-Ahmad%20Saalik%20Hussain-181717?style=for-the-badge&logo=github)](https://github.com/ahmad-sec-sentinel)
+
+Email: erahmad.saalik@gmail.com
 
 
 `
